@@ -1,0 +1,30 @@
+We are going to use MongoRestore tool to restore the DB on MongoDB server.
+First, make sure you have the tool on your computer. It can be installed if you already have mongoDB server with its tools installed on your local computer. Or you can install it separately from the server tools from this link: https://docs.mongodb.com/database-tools/installation/installation/ .
+
+Two options to copy the Mongo DB from Local to Atlas:
+change the username and password to yours. Get them from your Atlas account. Make sure the IP address is accessible.
+You need to change the cluster URL to your cluster URL. To find it, click on "Connect" in your cluster and check the URL.
+Change these 3 parameters (username, password, cluster URL) in the below commands.
+
+Sample username and password:
+----------------------------
+username: YOUR_USERNAME
+pass: YOUR_PASSWORD
+cluster URL: cluster0.tuddo.mongodb.net
+
+
+Option1, restore the MongoDB from an existing archive
+==================================================
+to restore the attached archive (travelexperts.arch):
+mongorestore --uri mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.tuddo.mongodb.net --archive=travelexperts.arch --ssl
+
+if you ewant to create the archive: 
+mongodump --uri="mongodb://localhost:27017/travelexperts" --archive=travelexperts.arch
+
+
+Option 2, Copy from Local MongoDB to Atlas
+==========================================
+mongodump --uri="mongodb://localhost:27017/travelexperts" --archive | mongorestore --uri mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@cluster0.tuddo.mongodb.net --ssl --archive
+
+
+
